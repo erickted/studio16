@@ -3,7 +3,7 @@ import { Routes, Route, Link, NavLink, useLocation } from "react-router-dom";
 import { AnimatePresence, motion } from "framer-motion";
 import { brand, nav } from "./data.js";
 import { Logo } from "./ui.jsx";
-import { Home, Pricing, Products, Projects, About, Contact } from "./pages.jsx";
+import { Home, Pricing, Products, Projects, About, Contact, Landing } from "./pages.jsx";
 
 function Loader({ done }) {
   useEffect(() => { const t = setTimeout(done, 1700); return () => clearTimeout(t); }, [done]);
@@ -69,8 +69,8 @@ function Footer() {
 
 export default function App() {
   const location = useLocation();
-  const [loading, setLoading] = useState(() => !sessionStorage.getItem("seen"));
-  const finish = () => { sessionStorage.setItem("seen", "1"); setLoading(false); };
+  const [loading, setLoading] = useState(true);
+  const finish = () => setLoading(false);
   useLayoutEffect(() => { window.scrollTo({ top: 0, left: 0, behavior: "instant" }); }, [location.pathname]);
   return (
     <>
@@ -79,7 +79,8 @@ export default function App() {
       <motion.main key={location.pathname} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.45 }}>
         <Routes>
-          <Route path="/" element={<Home />} />
+          <Route path="/home" element={<Home />} />
+          <Route path="/" element={<Landing />} />
           <Route path="/pricing" element={<Pricing />} />
           <Route path="/products" element={<Products />} />
           <Route path="/projects" element={<Projects />} />

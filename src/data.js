@@ -2,7 +2,7 @@
 export const brand = "S/16";
 export const nav = [
 // ["Products", "/products"], 
-["Pricing", "/pricing"], 
+// ["Pricing", "/pricing"], 
 // ["Projects", "/projects"], 
 // ["About", "/about"], 
 // ["Contact", "/contact"]
@@ -25,14 +25,14 @@ export const projects = [
 // Pricing: change currency, prices, copy and features here.
 export const currency = "£";
 export const tiers = [
-  { name: "Essential", price: "1,999", rec: false, forWho: "Best for a single room",
-    desc: "A focused design plan for one room, so you can furnish with confidence.",
+  { name: "Standard", price: "1,995", amt: "5-6 Rooms", rec: false, forWho: "",
+    desc: "The classic HMO scale, suited to the most common shared-living properties across the UK.",
     features: ["One design consultation", "Mood board and colour palette", "Furniture and decor shortlist", "Layout plan for one space", "Shopping list with supplier links"] },
-  { name: "Signature", price: "2,099", rec: true, forWho: "Best for a whole home",
-    desc: "A complete design for your home, from first concept to sourcing.",
+  { name: "Plus", price: "2,495", amt: "7-8 Rooms", rec: false, forWho: "",
+    desc: "A larger HMO scale, typically found in extended or expanded properties with additional rooms.",
     features: ["Everything in Essential", "Full-home concept with 3D renders", "Furniture, lighting and material selection", "Sourcing and ordering support", "Two rounds of revisions", "Site visit and styling day"] },
-  { name: "Bespoke", price: "2,499", rec: false, forWho: "Best for a fully custom project",
-    desc: "An end-to-end service with made-to-order pieces and hands-on project management.",
+  { name: "Pro", price: "3,095", amt: "9+ Rooms", rec: false, forWho: "",
+    desc: "A large-scale HMO format, ideal for substantial properties, multi-unit flats and larger developments.",
     features: ["Everything in Signature", "Custom furniture and joinery", "Detailed drawings for contractors", "Project management to handover", "Dedicated lead designer", "Installation and final styling"] },
 ];
 
@@ -42,3 +42,18 @@ export const gform = ""; // paste your Google Form link here to use it instead o
 export const quoteUrl = (plan) =>
   gform ||
   `https://wa.me/${whatsapp}?text=${encodeURIComponent(`Hi Studio 16, I'd like a quote for the ${plan} package.`)}`;
+
+  export const tiers4 = [
+  { name: "Plan", price: "500+", amt: "", rec: false, forWho: "The foundation for your project.",
+    desc: "Ideal for clients who already have a design concept but need accurate technical planning to bring it to life.",
+    features: ["Floor Plans", "Furniture Layout", "M&E Plans"] },
+  { name: "Visualize", price: "1,300+", amt: "", rec: false, forWho: "See your space before it’s built.",
+    desc: "Perfect for clients who already have their plans and simply need realistic visuals to see how the finished interior will look.",
+    features: ["3D Renders", "Key Room Visuals"] },
+  { name: "Design", price: "1,650+", amt: "", rec: false, forWho: "From planning to a complete design vision.",
+    desc: "Combining technical planning, mood boards and detailed visualisation to create a cohesive interior for your property.",
+    features: ["Floor Plans", "Furniture Layouts","M&E Plans", "Mood Boards", "3D Interior Renders"] },
+  { name: "Complete", price: "1,950+", amt: "", rec: false, forWho: "Everything you need, from concept to sourcing.",
+    desc: "Our most comprehensive service, covering the full design process—from initial planning and visualisation to furniture, finishes and sourcing.",
+    features: ["Full Design Package", "Furniture & Finishes", "Fixtures & Accessories","Shopping Lists"] },
+];

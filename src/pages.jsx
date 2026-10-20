@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Img, Reveal, More } from "./ui.jsx";
-import { products, projects, tiers, currency, quoteUrl, whatsapp } from "./data.js";
+import { products, projects, tiers, currency, quoteUrl, whatsapp, tiers4 } from "./data.js";
 
 
 function Cta() {
@@ -145,7 +145,7 @@ export function Pricing() {
   return (
     <section className="wrap page">
       <div className="price-head">
-        <Reveal as="h1" className="h1">Pricing</Reveal>
+        <Reveal as="h1" className="h1">Define Your Scale</Reveal>
         <Reveal as="p" delay={0.1}>Three ways to work with Studio 16. Choose the level of support that fits your space.</Reveal>
       </div>
       <div className="tiers">
@@ -153,17 +153,123 @@ export function Pricing() {
           <Reveal key={t.name} delay={i * 0.1} className={"tier" + (t.rec ? " rec" : "")}>
             {t.rec && <span className="flag">Recommended</span>}
             <h3>{t.name}</h3>
-            <div className="amt">{currency} {t.price}+<small>starting price</small></div>
+            <div className="amt">{currency} {t.price}<small>starting price</small></div>
+            {t.amt && <div className="rooms">{t.amt}</div>}
             <p className="desc">{t.desc}</p>
             {/* <Link to="/contact" className="go">Get a quote</Link> */}
-            <a href={quoteUrl(t.name)} target="_blank" rel="noopener noreferrer" className="go">Get a quote</a>
+            <a href={quoteUrl(t.name)} target="_blank" rel="noopener noreferrer" className="go">Enquire now</a>
             <p className="for">{t.forWho}</p>
             <hr />
-            <ul>{t.features.map((f) => <li key={f}>{f}</li>)}</ul>
+            {showFeatures && <ul>{t.features.map((f) => <li key={f}>{f}</li>)}</ul>}
           </Reveal>
         ))}
       </div>
-      <p className="fine">Final pricing depends on the size and scope of your project.</p>
+      {/* <p className="fine">Final pricing depends on the size and scope of your project.</p> */}
     </section>
+  );
+}
+
+const GALLERY = [
+  ["bedroom1A.png", "4/5"],
+  ["communalA.png", "3/2"],
+  ["bedroom6A.png", "1/1"],
+  ["communalB.png", "3/4"],
+  ["bedroom2B.png", "4/5"],
+  ["communalC.png", "3/2"],
+];
+
+function Tiers({ items = tiers, className = "", showFeatures = false }) {
+  return (
+    <div className={"tiers " + className}>
+      {items.map((t, i) => (
+        <Reveal key={t.name} delay={i * 0.1} className={"tier" + (t.rec ? " rec" : "")}>
+          {t.rec && <span className="flag">Recommended</span>}
+          <h3>{t.name}</h3>
+          <div className="amt">{currency} {t.price}<small></small></div>
+          {t.amt && <div className="rooms">{t.amt}</div>}
+          <p className="desc">{t.desc}</p>
+          <a href={quoteUrl(t.name)} target="_blank" rel="noopener noreferrer" className="go">Enquire now</a>
+          <p className="for">{t.forWho}</p>
+          {showFeatures && <hr />}
+          {showFeatures && <ul>{t.features.map((f) => <li key={f}>{f}</li>)}</ul>}
+        </Reveal>
+      ))}
+    </div>
+  );
+}
+
+
+const ABOUT_IMG = "overlayabt.jpg";
+
+function AboutHero() {
+  return (
+    <section className="about-hero" style={{ backgroundImage: `url(/images/${ABOUT_IMG})` }}>
+      <div className="wrap about-inner">
+        <Reveal as="h1" className="h1">Studio/16</Reveal>
+        <Reveal as="p" delay={0.1} className="about-lead">
+          Designing spaces with purpose. Visualising properties with potential.
+        </Reveal>
+        <Reveal delay={0.2} className="about-body">
+          <p>Studio16 is an interior design studio specialising in residential and investment properties. With over 5 years of experience across the UK and Singapore, we work with developers, property investors and homeowners to transform ideas and properties into considered, market-ready interiors.</p>
+          <p>From space planning and technical layouts to photorealistic visualisations and complete interior schemes, we help our clients see the potential of a property before it is built, renovated or brought to market. Our approach combines thoughtful design with practical solutions—whether the goal is to create a home, maximise an investment, support a property development, or present a compelling vision for marketing and sales.</p>
+          <p>With 50+ clients and more than 150 projects completed, Studio16 brings proven experience, efficiency and a strong understanding of residential design to every project.</p>
+        </Reveal>
+      </div>
+    </section>
+  );
+}
+
+export function Landing() {
+  return (
+    <>
+      <AboutHero />
+      <section className="wrap page">
+        <Reveal as="h1" className="h1">Clear Packages. Clear Deliverables. No Surprises.</Reveal>
+        <Reveal as="p" delay={0.1} className="lp-sub">
+          Good design should be straightforward.
+        </Reveal>
+        <Reveal as="p" delay={0.1} className="lp-sub">
+          Studio16 provides professional interior design for property investors, developers and homeowners through clearly defined packages, transparent pricing and practical deliverables — giving you everything you need to plan, visualise, market and deliver your property.
+        </Reveal>
+        <div className="gallery">
+          {GALLERY.map(([name, ratio], i) => <Img key={name} name={name} tone={i} ratio={ratio} />)}
+        </div>
+      </section>
+
+      <section className="wrap lp-prices">
+        <div className="price-head">
+          <Reveal as="h2" className="h2">Define Your Scale</Reveal>
+          <Reveal as="p" delay={0.1}>Every project is different. Choose the scale that best reflects your property, based on the number of rooms and overall project size.</Reveal>
+        </div>
+        <Tiers />
+        {/* <p className="fine">Final pricing depends on the size and scope of your project.</p> */}
+      </section>
+
+      <section className="wrap lp-prices">
+        <div className="price-head">
+          <Reveal as="h2" className="h2">Build Your Package</Reveal>
+          <Reveal as="p" delay={0.1}>Only pay for what you need. Select the design services that suit your project, from essential planning to a complete design package.</Reveal>
+        </div>
+        <Tiers items={tiers4} className="four" showFeatures/>
+          <p className="fine">Final pricing depends on the size and scope of your project.</p>
+      </section>
+
+      <section className="wrap lp-prices">
+        <Reveal className="tier beyond">
+          <h3>Beyond the Standard</h3>
+          <p className="desc">
+            Not every project fits into a package. For unique spaces, complex requirements or something entirely different, talk to us about a bespoke design solution.
+          </p>
+          <a
+            href={`https://wa.me/${whatsapp}?text=${encodeURIComponent("Hi Studio 16, I'd like to talk about a bespoke design solution.")}`}
+            target="_blank" rel="noopener noreferrer" className="go"
+          >
+            Talk to us
+          </a>
+        </Reveal>
+      </section>
+
+      <Cta />
+    </>
   );
 }
