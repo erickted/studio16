@@ -25,7 +25,7 @@ export const projects = [
 // Pricing: change currency, prices, copy and features here.
 export const currency = "£";
 export const tiers = [
-  { name: "Standard", price: "1,995", amt: "5-6 Rooms", rec: false, forWho: "",
+  { name: "Standard", price: "1,950", amt: "5-6 Rooms", rec: false, forWho: "",
     desc: "The classic HMO scale, suited to the most common shared-living properties across the UK.",
     features: ["One design consultation", "Mood board and colour palette", "Furniture and decor shortlist", "Layout plan for one space", "Shopping list with supplier links"] },
   { name: "Plus", price: "2,495", amt: "7-8 Rooms", rec: false, forWho: "",
@@ -53,7 +53,7 @@ export const quoteUrl = (plan) =>
   { name: "Design", price: "1,650+", amt: "", rec: false, forWho: "From planning to a complete design vision.",
     desc: "Combining technical planning, mood boards and detailed visualisation to create a cohesive interior for your property.",
     features: ["Floor Plans", "Furniture Layouts","M&E Plans", "Mood Boards", "3D Interior Renders"] },
-  { name: "Complete", price: "1,950+", amt: "", rec: false, forWho: "Everything you need, from concept to sourcing.",
+  { name: "Complete", price: "1,950+", amt: "", rec: false, forWho: "Everything You Need to Bring the Design to Life. From concept to specification, each package includes",
     desc: "Our most comprehensive service, covering the full design process—from initial planning and visualisation to furniture, finishes and sourcing.",
-    features: ["Full Design Package", "Furniture & Finishes", "Fixtures & Accessories","Shopping Lists"] },
+    features: ["Design Brief & Mood Boards", "Floor Plans & M&E Planning", "3D Renders","Furniture, Finishes & Styling Selections", "Ready-to-Shop Product Lists"] },
 ];

@@ -244,3 +244,25 @@ small.muted{font-size:11px;text-transform:none;display:block}
 .about-body{max-width:62ch;display:grid;gap:16px}
 .about-body p{font-size:15px;line-height:1.75;color:#e6e6e3}
 @media(max-width:860px){.about-hero::before{background:rgba(10,10,10,.75)}}
+
+/* ===== Carousel ===== */
+.car-sec{padding-block:clamp(28px,4.5vw,64px);overflow:hidden}
+.wrap.car-head{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;padding-block:0 28px}
+.wrap.car-prog{padding-block:28px 0}
+.car-ctrl{display:flex;align-items:center;gap:14px}
+.car-count{font:300 14px "Montserrat";letter-spacing:.14em;font-variant-numeric:tabular-nums;color:#666;margin-right:6px}
+.car-count b{font-weight:400;color:var(--ink)}
+.car-btn{width:48px;height:48px;border-radius:50%;border:1px solid var(--ink);background:none;color:var(--ink);font-size:22px;line-height:1;cursor:pointer;display:grid;place-items:center;transition:background .3s,color .3s}
+.car-btn:hover{background:var(--ink);color:#fff}
+
+.car-track{--sw:clamp(250px,36vw,500px);position:relative;display:flex;gap:clamp(12px,1.6vw,24px);overflow-x:auto;padding-inline:calc(50% - var(--sw)/2);scroll-snap-type:x mandatory;scrollbar-width:none;cursor:grab;outline:none}
+.car-track::-webkit-scrollbar{display:none}
+.car-track.drag{scroll-snap-type:none;cursor:grabbing;user-select:none}
+.car-track img{pointer-events:none;-webkit-user-drag:none}
+.car-slide{flex:0 0 var(--sw);scroll-snap-align:center;transform:scale(.86);opacity:.5;transition:transform .7s cubic-bezier(.22,1,.36,1),opacity .7s}
+.car-slide.on{transform:scale(1);opacity:1}
+
+.car-bar{height:2px;background:#d6d6d3}
+.car-bar i{display:block;height:100%;background:var(--ink);transform-origin:left;transition:transform .7s cubic-bezier(.22,1,.36,1)}
+
+@media(max-width:520px){.car-count{display:none}.car-btn{width:42px;height:42px}}

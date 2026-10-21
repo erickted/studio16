@@ -1,5 +1,4 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useState, useRef, useEffect } from "react";import { Link } from "react-router-dom";
 import { Img, Reveal, More } from "./ui.jsx";
 import { products, projects, tiers, currency, quoteUrl, whatsapp, tiers4 } from "./data.js";
 
@@ -176,6 +175,18 @@ const GALLERY = [
   ["communalB.png", "3/4"],
   ["bedroom2B.png", "4/5"],
   ["communalC.png", "3/2"],
+  ["carousel1.jpeg", "4/5"],
+  ["carousel2.jpeg", "4/5"],
+  ["carousel3.jpeg", "4/5"],
+  ["carousel4.jpeg", "4/5"],
+  ["carousel5.jpeg", "4/5"],
+  ["carousel6.jpeg", "4/5"],
+  ["carousel7.jpeg", "4/5"],
+  ["carousel8.jpeg", "4/5"],
+  ["carousel9.jpeg", "4/5"],
+  ["carousel10.jpeg", "4/5"],
+  ["carousel11.jpeg", "4/5"],
+  ["carousel12.jpeg", "4/5"],
 ];
 
 function Tiers({ items = tiers, className = "", showFeatures = false }) {
@@ -219,6 +230,93 @@ function AboutHero() {
   );
 }
 
+function Carousel({ items }) {
+  const track = useRef(null);
+  const drag = useRef(null);
+  const moved = useRef(false);
+  const [active, setActive] = useState(0);
+  const [paused, setPaused] = useState(false);
+  const n = items.length;
+
+  const go = (i) => {
+    const el = track.current;
+    if (!el) return;
+    const slide = el.children[(i + n) % n];
+    el.scrollTo({ left: slide.offsetLeft - (el.clientWidth - slide.clientWidth) / 2, behavior: "smooth" });
+  };
+
+  const onScroll = () => {
+    const el = track.current;
+    const mid = el.scrollLeft + el.clientWidth / 2;
+    let best = 0, dist = Infinity;
+    [...el.children].forEach((s, i) => {
+      const d = Math.abs(s.offsetLeft + s.clientWidth / 2 - mid);
+      if (d < dist) { dist = d; best = i; }
+    });
+    setActive(best);
+  };
+
+  useEffect(() => {
+    if (paused || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const t = setTimeout(() => go(active + 1), 3800);
+    return () => clearTimeout(t);
+  }, [active, paused]);
+
+  const down = (e) => {
+    if (e.pointerType !== "mouse") return;
+    moved.current = false;
+    drag.current = { x: e.clientX, left: track.current.scrollLeft };
+    track.current.classList.add("drag");
+  };
+  const move = (e) => {
+    const d = drag.current;
+    if (!d) return;
+    const dx = e.clientX - d.x;
+    if (Math.abs(dx) > 4) moved.current = true;
+    track.current.scrollLeft = d.left - dx;
+  };
+  const up = () => {
+    if (!drag.current) return;
+    drag.current = null;
+    track.current.classList.remove("drag");
+    go(active);
+  };
+  const key = (e) => {
+    if (e.key === "ArrowRight") go(active + 1);
+    if (e.key === "ArrowLeft") go(active - 1);
+  };
+
+  const pad = (v) => String(v).padStart(2, "0");
+
+  return (
+    <div onMouseEnter={() => setPaused(true)} onMouseLeave={() => setPaused(false)}
+      onTouchStart={() => setPaused(true)} onTouchEnd={() => setPaused(false)}>
+      <div className="wrap car-head">
+        {/* <Reveal><small className="muted">Portfolio</small><h2 className="h2">Selected Work</h2></Reveal> */}
+        <div className="car-ctrl">
+          <span className="car-count"><b>{pad(active + 1)}</b> / {pad(n)}</span>
+          <button className="car-btn" aria-label="Previous" onClick={() => go(active - 1)}>‹</button>
+          <button className="car-btn" aria-label="Next" onClick={() => go(active + 1)}>›</button>
+        </div>
+      </div>
+
+      <div className="car-track" ref={track} tabIndex={0} aria-label="Gallery" onScroll={onScroll} onKeyDown={key}
+        onPointerDown={down} onPointerMove={move} onPointerUp={up} onPointerLeave={up}>
+        {items.map(([name], i) => (
+          <div key={name} className={"car-slide" + (i === active ? " on" : "")}
+            onClick={() => { if (!moved.current) go(i); }}>
+            <Img name={name} tone={i} ratio="4/5" />
+          </div>
+        ))}
+      </div>
+
+      <div className="wrap car-prog">
+        <div className="car-bar"><i style={{ transform: `scaleX(${(active + 1) / n})` }} /></div>
+      </div>
+    </div>
+  );
+}
+
 export function Landing() {
   return (
     <>
@@ -231,9 +329,12 @@ export function Landing() {
         <Reveal as="p" delay={0.1} className="lp-sub">
           Studio16 provides professional interior design for property investors, developers and homeowners through clearly defined packages, transparent pricing and practical deliverables — giving you everything you need to plan, visualise, market and deliver your property.
         </Reveal>
-        <div className="gallery">
+        {/* <div className="gallery">
           {GALLERY.map(([name, ratio], i) => <Img key={name} name={name} tone={i} ratio={ratio} />)}
-        </div>
+        </div> */}
+        <section className="car-sec">
+          <Carousel items={GALLERY} />
+        </section>
       </section>
 
       <section className="wrap lp-prices">
